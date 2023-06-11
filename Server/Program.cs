@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using SyncfusionHelpDeskBlazorApp.Server.Data;
 using SyncfusionHelpDeskBlazorApp.Server.Models;
 using Syncfusion.Blazor;
+using SyncfusionHelpDesk.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// To access HelpDesk tables.
+builder.Services.AddDbContext<SyncfusionHelpDeskContext>(options =>
+options.UseSqlServer(
+ builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -31,7 +40,14 @@ System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultInboundClaimTypeM
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+ .AddNewtonsoftJson(
+ options =>
+ options.SerializerSettings.ReferenceLoopHandling =
+ Newtonsoft.Json.ReferenceLoopHandling.Ignore
+ );
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

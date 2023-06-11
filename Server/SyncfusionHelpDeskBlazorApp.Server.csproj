@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\Register.cshtml" />
+    <_ContentIncludedByDefault Remove="efpt.config.json" />
   </ItemGroup>
 
   <ItemGroup>
