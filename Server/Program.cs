@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using SyncfusionHelpDeskBlazorApp.Server.Data;
 using SyncfusionHelpDeskBlazorApp.Server.Models;
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,8 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using SyncfusionHelpDeskBlazorApp.Shared
-@attribute [Authorize]
+@*@attribute [Authorize]*@
+@inject IHttpClientFactory ClientFactory
 @inject HttpClient Http
 
 <PageTitle>Weather forecast</PageTitle>
@@ -47,7 +48,15 @@ else
     {
         try
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+
+            // Use the NoAuthenticationClient
+            var client =
+            ClientFactory.CreateClient("ServerAPI.NoAuthenticationClient");
+            forecasts =
+            await client.GetFromJsonAsync<WeatherForecast[]>
+            ("WeatherForecast");
+
         }
         catch (AccessTokenNotAvailableException exception)
         {

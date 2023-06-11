@@ -4,7 +4,8 @@ using SyncfusionHelpDeskBlazorApp.Shared;
 
 namespace SyncfusionHelpDeskBlazorApp.Server.Controllers
 {
-    [Authorize]
+    //[Authorize(Roles = "Administrators")]
+    [AllowAnonymous] // Allow everyone.
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
